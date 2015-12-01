@@ -1,4 +1,4 @@
-<%- model_class = Problem -%>
+<!-- <%- model_class = Problem -%>
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
@@ -41,4 +41,15 @@
 
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_problem_path,
-            :class => 'btn btn-primary' %>
+            :class => 'btn btn-primary' %> -->
+
+<div class="jumbotron text-center">
+  <h1 class="display-3">Aplikasi Helpdesk</h1>
+  <p class="lead">
+    Hallo <%= session[:user_name] %>
+  </p>
+  <hr class="m-y-md">
+  <p>Anda sudah melaporkan <a><%= Problem.where(user_id: session[:user_id]).count %></a> Masalah</p>
+  <p><a><%= Problem.where(user_id: session[:user_id], status: 'selesai').count %></a> Masalah telah terselsaikan</p>
+  <p><a><%= Problem.where(user_id: session[:user_id], status: 'sedang dikerjakan').count %></a> Masalah masih dalam penanganan</p>
+</div>
