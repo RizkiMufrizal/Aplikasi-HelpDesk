@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
 
   before_save :ecrypt_password
+  validates :name, :email, :password_hash, presence: true
+  validates :email, :email_format => { :message => 'Format email salah' }
 
   def self.authenticate(email, password)
     user = User.where(email: email).first
