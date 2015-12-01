@@ -37,20 +37,12 @@
     <%= error_span(@problem[:picture]) %>
   </div>
   <div class="control-group">
-    <%= f.label :status, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :status, :class => 'form-control' %>
-    </div>
-    <%= error_span(@problem[:status]) %>
-  </div>
-  <div class="control-group">
     <%= f.label :user_id, :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :user_id, :class => 'form-control' %>
     </div>
     <%= error_span(@problem[:user_id]) %>
   </div>
-
 
   <%= f.submit nil, :class => 'btn btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
