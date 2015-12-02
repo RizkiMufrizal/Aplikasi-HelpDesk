@@ -1,7 +1,7 @@
 class Problem < ActiveRecord::Base
 
   before_save :set_status
-  validates :title, :description, :picture, :user_id, presence: true
+  validates :title, :description, :picture, presence: true
 
   private
     def set_status
