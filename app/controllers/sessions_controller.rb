@@ -12,6 +12,7 @@ class SessionsController < ApplicationController
       session[:user_id] = @user.id
       session[:user_email] = @user.email
       session[:user_login] = true
+      session[:user_role] = @user.role
       redirect_to "/"
     else
       flash[:danger] = "username dan password masih salah"
