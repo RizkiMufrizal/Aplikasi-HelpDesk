@@ -15,37 +15,36 @@
     </div>
   <% end %>
 
-  <div class="control-group">
-    <%= f.label :title, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :title, :class => 'form-control' %>
-    </div>
+  <div class="form-group">
+    <%= f.label :judul, :class => 'control-label' %>
+    <%= f.text_field :title, :class => 'form-control', :placeholder => 'masukkan judul anda' %>
     <%= error_span(@problem[:title]) %>
   </div>
-  <div class="control-group">
-    <%= f.label :description, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :description, :class => 'form-control' %>
-    </div>
+  <div class="form-group">
+    <%= f.label :deskripsi, :class => 'control-label' %>
+    <%= f.text_field :description, :class => 'form-control', :placeholder => 'masukkan deskripsi anda' %>
     <%= error_span(@problem[:description]) %>
   </div>
-  <div class="control-group">
-    <%= f.label :picture, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :picture, :class => 'form-control' %>
-    </div>
+  <div class="form-group">
+    <%= f.label :gambar, :class => 'control-label' %>
+    <%= f.file_field :picture, :class => 'form-control' %>
     <%= error_span(@problem[:picture]) %>
   </div>
-  <div class="control-group">
-    <%= f.label :user_id, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :user_id, :class => 'form-control' %>
-    </div>
+
+  <% if session[:user_role] == "ROLE_ADMIN" %>
+
+  <div class="form-group">
+    <%= f.label :pelanggan, :class => 'control-label' %>
+    <%= f.collection_select :user_id,User.all, :id, :name, {prompt: "Pilih Pelanggan"}, {class: "form-control"} %>
     <%= error_span(@problem[:user_id]) %>
   </div>
 
-  <%= f.submit nil, :class => 'btn btn-primary' %>
-  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-            problems_path, :class => 'btn btn-default' %>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.submit :Simpan, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.batal")),
+              '/', :class => 'btn btn-default' %>
+  </div>
 
 <% end %>
