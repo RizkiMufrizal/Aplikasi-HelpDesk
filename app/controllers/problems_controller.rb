@@ -3,7 +3,7 @@ class ProblemsController < ApplicationController
   def index
 
     if session[:user_login]
-      @problems = Problem.where(user_id: session[:user_id]).paginate(:page => params[:page], :per_page => 10)
+
     else
       redirect_to "/login"
     end
@@ -37,6 +37,38 @@ class ProblemsController < ApplicationController
       render "new"
     end
 
+  end
+
+  def show
+    @problems = Problem.where(user_id: session[:user_id]).paginate(:page => params[:page], :per_page => 5)
+  end
+
+  def showDisable
+    @problems = Problem.where(user_id: session[:user_id], status: 'sedang dikerjakan').paginate(:page => params[:page], :per_page => 5)
+  end
+
+  def showEnable
+    @problems = Problem.where(user_id: session[:user_id], status: 'selesai').paginate(:page => params[:page], :per_page => 5)
+  end
+
+  def edit
+    @problem = Problem.find(params[:id])
+  end
+
+  def update
+    @problem = Problem.find(params[:id])
+
+    if @problem.update(problem_params)
+      redirect_to "/problem/detail"
+    else
+      render "edit"
+    end
+  end
+
+  def destroy
+    @problem = Problem.find(params[:id])
+    @problem.destroy
+    redirect_to "/problem/detail"
   end
 
   private
