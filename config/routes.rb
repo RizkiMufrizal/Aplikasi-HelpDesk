@@ -13,5 +13,8 @@ Rails.application.routes.draw do
 
   get '/problem' => 'problems#new'
   post '/problem' => 'problems#create'
+  get '/problem/detail' => 'problems#show'
+  get '/problem/detailEnable' => 'problems#showEnable'
+  get '/problem/detailDisable' => 'problems#showDisable'
 
 end
