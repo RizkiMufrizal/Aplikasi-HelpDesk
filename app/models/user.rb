@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
 
-  before_save :ecrypt_password
+  before_create :ecrypt_password
   validates :name, :email, :password_hash, presence: true
   validates :email, :email_format => { :message => 'Format email salah' }
 
