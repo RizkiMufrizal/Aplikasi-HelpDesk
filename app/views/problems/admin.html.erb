@@ -1,0 +1,63 @@
+<div class="col-md-1">
+
+</div>
+<div class="col-md-10">
+  <%- model_class = Problem -%>
+    <div class="page-header text-center">
+      <h1>
+        Daftar Laporan Masalah
+      </h1>
+    </div>
+
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>
+            <%= model_class.human_attribute_name(:judul) %>
+          </th>
+          <th>
+            <%= model_class.human_attribute_name(:deskripsi) %>
+          </th>
+          <th>
+            <%= model_class.human_attribute_name(:gambar) %>
+          </th>
+          <th>
+            <%= model_class.human_attribute_name(:status) %>
+          </th>
+          <th>
+            <%=t '.actions', :default => t("helpers.actions") %>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @problems.each do |problem| %>
+          <tr>
+            <td>
+              <%= problem.title %>
+            </td>
+            <td>
+              <%= problem.description %>
+            </td>
+            <td>
+              <%= problem.picture %>
+            </td>
+            <td>
+              <%= problem.status %>
+            </td>
+            <td>
+              <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_problem_path(problem), :class => 'btn btn-success' %>
+                <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      problem_path(problem),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-danger' %>
+            </td>
+          </tr>
+          <% end %>
+      </tbody>
+    </table>
+
+    <%= will_paginate @collection, renderer: BootstrapPagination::Rails %>
+
+</div>
