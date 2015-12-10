@@ -6,14 +6,24 @@ class SessionsController < ApplicationController
 
   def process_login
     @user = User.authenticate(params[:email], params[:password])
-    if @user && @user.enable == true && @user.role == "ROLE_USER"
-      flash[:notice] = "Anda berhasil login"
-      session[:user_name] = @user.name
-      session[:user_id] = @user.id
-      session[:user_email] = @user.email
-      session[:user_login] = true
-      session[:user_role] = @user.role
-      redirect_to "/"
+    if @user && @user.enable == true
+      if @user.role == "ROLE_USER"
+          flash[:notice] = "Anda berhasil login"
+          session[:user_name] = @user.name
+          session[:user_id] = @user.id
+          session[:user_email] = @user.email
+          session[:user_login] = true
+          session[:user_role] = @user.role
+          redirect_to "/"
+      else
+          flash[:notice] = "Anda berhasil login"
+          session[:user_name] = @user.name
+          session[:user_id] = @user.id
+          session[:user_email] = @user.email
+          session[:user_login] = true
+          session[:user_role] = @user.role
+          redirect_to "/admin"
+      end
     else
       flash[:danger] = "username dan password masih salah"
       render "login"
