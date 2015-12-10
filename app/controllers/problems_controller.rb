@@ -17,7 +17,6 @@ class ProblemsController < ApplicationController
   def create
 
     picture = params[:problem][:picture]
-    puts "class #{picture.class}"
 
     file_extension = File.extname(picture.original_filename)
     new_file_name = SecureRandom.uuid
@@ -58,11 +57,27 @@ class ProblemsController < ApplicationController
   def update
     @problem = Problem.find(params[:id])
 
-    if @problem.update(problem_params)
-      redirect_to "/problem/detail"
+    picture = params[:problem][:picture]
+
+    if picture
+        file_extension = File.extname(picture.original_filename)
+        new_file_name = SecureRandom.uuid
+
+        File.open(Rails.root.join('public', 'uploads', "#{new_file_name}#{file_extension}"), 'wb') do |file|
+          file.write picture.read
+        end
+
+        @problem.picture = "#{new_file_name}#{file_extension}"
+
+        if @problem.save
+          redirect_to "/problem/detail"
+        else
+          render "edit"
+        end
     else
-      render "edit"
+        render "edit"
     end
+
   end
 
   def destroy
