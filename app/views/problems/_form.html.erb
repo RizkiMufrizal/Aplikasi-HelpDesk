@@ -22,7 +22,7 @@
   </div>
   <div class="form-group">
     <%= f.label :deskripsi, :class => 'control-label' %>
-    <%= f.text_field :description, :class => 'form-control', :placeholder => 'masukkan deskripsi anda' %>
+    <%= f.text_area :description, :class => 'form-control', :placeholder => 'masukkan deskripsi anda' %>
     <%= error_span(@problem[:description]) %>
   </div>
   <div class="form-group">
@@ -35,16 +35,33 @@
 
   <div class="form-group">
     <%= f.label :pelanggan, :class => 'control-label' %>
-    <%= f.collection_select :user_id,User.all, :id, :name, {prompt: "Pilih Pelanggan"}, {class: "form-control"} %>
+    <%= f.collection_select :user_id, User.all, :id, :name, {prompt: "Pilih Pelanggan"}, {class: "form-control"} %>
     <%= error_span(@problem[:user_id]) %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :status, :class => 'control-label' %>
+    <%= f.text_field :status, :class => 'form-control' %>
   </div>
 
   <% end %>
 
+  <% if session[:user_role] == "ROLE_ADMIN" %>
+
   <div class="form-group">
-    <%= f.submit :Simpan, :class => 'btn btn-primary' %>
-    <%= link_to t('.cancel', :default => t("helpers.links.batal")),
-              '/', :class => 'btn btn-default' %>
+      <%= f.submit :Simpan, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.batal")),
+              '/admin', :class => 'btn btn-default' %>
   </div>
+
+  <% else %>
+
+    <div class="form-group">
+        <%= f.submit :Simpan, :class => 'btn btn-primary' %>
+        <%= link_to t('.cancel', :default => t("helpers.links.batal")),
+                '/', :class => 'btn btn-default' %>
+    </div>
+
+  <% end %>
 
 <% end %>
