@@ -10,6 +10,14 @@ class ProblemsController < ApplicationController
 
   end
 
+  def admin
+      if session[:user_role]
+          @problems = Problem.paginate(:page => params[:page], :per_page => 5)
+      else
+         redirect_to "/login"
+      end
+  end
+
   def new
     @problem = Problem.new
   end
@@ -75,7 +83,9 @@ class ProblemsController < ApplicationController
           render "edit"
         end
     else
-        render "edit"
+        if @problem.update(problem_params_update)
+            redirect_to "/"
+        end
     end
 
   end
@@ -89,6 +99,10 @@ class ProblemsController < ApplicationController
   private
     def problem_params
       params.require(:problem).permit(:title, :description, :picture, :user_id)
+    end
+
+    def problem_params_update
+      params.require(:problem).permit(:title, :description, :user_id, :status)
     end
 
 end
