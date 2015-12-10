@@ -1,6 +1,6 @@
 class Problem < ActiveRecord::Base
 
-  before_save :set_status
+  before_create :set_status
   validates :title, :description, :picture, presence: true
 
   private
