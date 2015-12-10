@@ -17,5 +17,6 @@ Rails.application.routes.draw do
   get '/problem/detail' => 'problems#show'
   get '/problem/detailEnable' => 'problems#showEnable'
   get '/problem/detailDisable' => 'problems#showDisable'
+  get '/admin' => 'problems#admin'
 
 end
