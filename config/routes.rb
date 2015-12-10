@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   get '/register' => 'users#new'
   post '/register' => 'users#create'
+  get '/verifikasi/:id' => 'users#verification'
 
   get '/problem' => 'problems#new'
   post '/problem' => 'problems#create'
