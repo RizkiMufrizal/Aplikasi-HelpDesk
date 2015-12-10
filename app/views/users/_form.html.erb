@@ -31,7 +31,7 @@
             <%= error_span(@user[:name]) %>
       </div>
       <div class="form-group">
-        <%= f.label :password_hash, :class => 'control-label' %>
+        <%= f.label :password, :class => 'control-label' %>
           <%= f.password_field :password_hash, :class => 'form-control' %>
             <%= error_span(@user[:password_hash]) %>
       </div>
