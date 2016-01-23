@@ -19,12 +19,12 @@ class UsersController < ApplicationController
   end
 
   def verification
-      @user = User.find(params[:id])
-      @user.enable = true
-      if @user.save
-        flash[:notice] = "Anda berhasil melakukan verifikasi, silahkan login"
-        redirect_to "/login"
-      end
+    @user = User.find(params[:id])
+    @user.enable = true
+    if @user.save
+      flash[:notice] = "Anda berhasil melakukan verifikasi, silahkan login"
+      redirect_to "/login"
+    end
   end
 
   private

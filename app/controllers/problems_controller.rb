@@ -11,11 +11,11 @@ class ProblemsController < ApplicationController
   end
 
   def admin
-      if session[:user_role]
-          @problems = Problem.paginate(:page => params[:page], :per_page => 5)
-      else
-         redirect_to "/login"
-      end
+    if session[:user_role]
+      @problems = Problem.paginate(:page => params[:page], :per_page => 5)
+    else
+      redirect_to "/login"
+    end
   end
 
   def new
@@ -68,24 +68,24 @@ class ProblemsController < ApplicationController
     picture = params[:problem][:picture]
 
     if picture
-        file_extension = File.extname(picture.original_filename)
-        new_file_name = SecureRandom.uuid
+      file_extension = File.extname(picture.original_filename)
+      new_file_name = SecureRandom.uuid
 
-        File.open(Rails.root.join('public', 'uploads', "#{new_file_name}#{file_extension}"), 'wb') do |file|
-          file.write picture.read
-        end
+      File.open(Rails.root.join('public', 'uploads', "#{new_file_name}#{file_extension}"), 'wb') do |file|
+        file.write picture.read
+      end
 
-        @problem.picture = "#{new_file_name}#{file_extension}"
+      @problem.picture = "#{new_file_name}#{file_extension}"
 
-        if @problem.save
-          redirect_to "/problem/detail"
-        else
-          render "edit"
-        end
+      if @problem.save
+        redirect_to "/problem/detail"
+      else
+        render "edit"
+      end
     else
-        if @problem.update(problem_params_update)
-            redirect_to "/"
-        end
+      if @problem.update(problem_params_update)
+        redirect_to "/"
+      end
     end
 
   end
